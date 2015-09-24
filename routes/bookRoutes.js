@@ -44,21 +44,26 @@ var routes = function(Book) {
       book.author = req.body.author;
       book.genre = req.body.genre;
       book.read = req.body.read;
-      book.save();
-      res.json(book);
+      book.save(function(err) {
+        if(err)
+          res.status(500).send(err)
+        else
+          res.json(book);
+      });
     })
     .patch(function(req, res) {
       var book = req.book;
-      if(req.body.title != undefined)
-        book.title = req.body.title;
-      if(req.body.author != undefined)
-        book.author = req.body.author;
-      if(req.body.genre != undefined)
-        book.genre = req.body.genre;
-      if(req.body.read != undefined)
-        book.read = req.body.read;
-      book.save();
-      res.json(book);
+      if(req.body._id)
+        delete req.body._id;
+      for(var prop in req.body) {
+        book[prop] = req.body[prop];
+      }
+      book.save(function(err) {
+        if(err)
+          res.status(500).send(err)
+        else
+          res.json(book);
+      });
     });
 
   return bookRouter;
