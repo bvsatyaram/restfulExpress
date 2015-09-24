@@ -30,7 +30,7 @@ var routes = function(Book) {
         req.book = book;
         next();
       } else {
-        req.status(404).send("No Book Found")
+        res.status(404).send("No Book Found")
       }
     });
   });
@@ -64,6 +64,14 @@ var routes = function(Book) {
         else
           res.json(book);
       });
+    })
+    .delete(function(req, res) {
+      req.book.remove(function(err) {
+        if(err)
+          res.status(500).send(err)
+        else
+          res.status(204).send("Book Deleted");
+      })
     });
 
   return bookRouter;
