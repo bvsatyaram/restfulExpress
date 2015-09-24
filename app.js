@@ -11,7 +11,11 @@ var port = process.env.PORT || 3000;
 var bookRouter = express.Router();
 bookRouter.route('/books')
   .get(function(req, res) {
-    Book.find(function(err, books) {
+    var query = {};
+    if (req.query.genre) {
+      query.genre = req.query.genre;
+    }
+    Book.find(query, function(err, books) {
       if(err)
         res.status(500).send(err);
       else
