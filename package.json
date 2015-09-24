@@ -17,6 +17,10 @@
   },
   "homepage": "https://github.com/bvsatyaram/restfulExpress#readme",
   "devDependencies": {
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "gulp-nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "gulp": "^3.9.0"
   }
 }
